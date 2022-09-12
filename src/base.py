@@ -13,6 +13,14 @@ digits[14] = 'E'
 digits[15] = 'F'
 
 
+def change_to_base_positive_int(n: int, b: int) -> str:
+    lst = list()
+    while n != 0:
+        lst.append(digits[n % b])
+        n = n // b
+    return "".join(lst[::-1])
+
+
 def change_to_base(n: int, b: int) -> str:
     """
     Return `n` in base `b`.
@@ -29,4 +37,9 @@ def change_to_base(n: int, b: int) -> str:
     '1F'
     """
     assert 2 <= b <= 16
-    return ''  # FIXME: return n in the right base
+    if n == 0:
+        return '0'
+    elif n < 0:
+        return '-' + change_to_base_positive_int(-1*n, b)
+    else:
+        return change_to_base_positive_int(n, b)
